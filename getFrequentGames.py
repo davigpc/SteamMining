@@ -2,8 +2,11 @@ import requests
 import time
 import csv
 from collections import Counter
+import os
 
-API_KEY = "A8AD4A9C9CD3A382AEE96A3B52E140C2"
+API_KEY = os.getenv("STEAM_API_KEY")
+if not API_KEY:
+    raise ValueError("A chave da API não foi definida nas variáveis de ambiente.")
 
 def get_owned_games(steam_id):
     url = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/"
