@@ -3,12 +3,12 @@ import requests
 import time
 from collections import deque
 
-# Obtenha a chave da variável de ambiente
+# Retorna a chave da variável de ambiente
 API_KEY = os.getenv("STEAM_API_KEY")
 if not API_KEY:
     raise ValueError("A chave da API não foi definida nas variáveis de ambiente.")
 
-START_STEAMID = "76561198130809226"  # Substitua pelo SteamID de partida
+START_STEAMID = "76561198130809226"  # ID do davizaps
 MAX_IDS = 100
 
 def get_friends(steam_id):

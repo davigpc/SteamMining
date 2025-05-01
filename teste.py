@@ -4,4 +4,4 @@ import pandas as pd
 df = pd.read_csv('jogos_mais_frequentes.csv')
 
 # Exibe as primeiras linhas do DataFrame
-print(df.head())
+print(df['players_with_game'].head(15))
