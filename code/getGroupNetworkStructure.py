@@ -57,18 +57,7 @@ if __name__ == "__main__":
     os.makedirs("images", exist_ok=True)
     
 
-
-# --- Início do Script Principal ---
 if __name__ == "__main__":
-
-    # --- ETAPA 1: Carregamento dos Dados ---
-    print("--- ETAPA 1: Carregamento e Amostragem Híbrida dos Dados ---")
-    try:
-        G_full = nx.read_gml(GML_FILE_PATH)
-        print(f"Grafo '{GML_FILE_PATH}' carregado com sucesso: {G_full.number_of_nodes()} nós e {G_full.number_of_edges()} arestas.")
-    except FileNotFoundError:
-        print(f"[ERRO] Arquivo do grafo não encontrado em: '{GML_FILE_PATH}'")
-        sys.exit()
 
     # --- INÍCIO DA LÓGICA DE AMOSTRAGEM HÍBRIDA ---
     
