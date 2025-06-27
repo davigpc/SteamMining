@@ -11,7 +11,6 @@ analyzer = SentimentIntensityAnalyzer()
 
 # Função para aplicar o VADER e retornar o score 'compound'
 def get_vader_score(texto):
-    # O método polarity_scores retorna um dicionário com neg, neu, pos, compound
     return analyzer.polarity_scores(texto)['compound']
 
 df_reviews = pd.read_csv("datasets/steam_reviews_bannerlord.csv")
@@ -22,7 +21,7 @@ df_reviews['vader_score'] = df_reviews['texto_review'].apply(get_vader_score)
 print("Análise com VADER concluída. Amostra dos resultados:")
 print(df_reviews[['texto_review', 'foi_recomendado', 'vader_score']].head())
 
-# Exemplo de como interpretar o score do VADER
+# Como interpretamos o score do VADER
 def classificar_vader(score):
     if score >= 0.05:
         return 'pos'
@@ -39,7 +38,6 @@ print("\n--- ETAPA 6: Avaliando a Performance do VADER ---")
 
 # --- Passo 1: Preparar os dados para comparação ---
 # O VADER classifica em 'pos', 'neg' e 'neu', mas o 'foi_recomendado' é apenas True/False.
-# Para uma comparação justa, vamos focar apenas nas reviews que o VADER classificou como positivas ou negativas.
 df_comparacao = df_reviews[df_reviews['vader_label'] != 'neu'].copy()
 
 # Converte o label do VADER ('pos'/'neg') para o mesmo formato do gabarito (True/False)

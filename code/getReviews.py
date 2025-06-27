@@ -7,7 +7,7 @@ print("Iniciando a coleta de reviews da Steam...")
 
 # --- Configurações ---
 app_id = 261550  # Bannerlord
-target_reviews = 50000  # Quantos reviews queremos coletar?
+target_reviews = 50000  # Quantos reviews queremos coletar
 reviews_por_pagina = 100 # A API permite até 100 por página
 
 # --- Coleta com Paginação ---
@@ -18,9 +18,9 @@ while len(reviews_coletadas) < target_reviews:
     params = {
         "json": 1,
         "language": "english",
-        "filter": "all",  # Você pode mudar para 'all', 'updated', etc.
+        "filter": "all",  
         "num_per_page": reviews_por_pagina,
-        "cursor": quote_plus(cursor) # O cursor precisa ser URL-encoded
+        "cursor": quote_plus(cursor) 
     }
     
     try:
@@ -30,7 +30,7 @@ while len(reviews_coletadas) < target_reviews:
         
         data = response.json()
         
-        # Adiciona os reviews desta página à nossa lista
+        
         reviews_lote_atual = data.get("reviews", [])
         if not reviews_lote_atual:
             print("Não há mais reviews para coletar.")
@@ -40,17 +40,15 @@ while len(reviews_coletadas) < target_reviews:
             reviews_coletadas.append({
                 'steamid': review['author']['steamid'],
                 'texto_review': review['review'],
-                'foi_recomendado': review['voted_up'], # True ou False
+                'foi_recomendado': review['voted_up'], 
                 'votos_uteis': review['votes_up'],
                 'data_postagem': review['timestamp_created']
             })
 
-        # Prepara o cursor para a próxima página
         cursor = data.get("cursor", "*")
         
         print(f"Coletados {len(reviews_coletadas)} de {target_reviews} reviews...")
 
-        # Pausa para ser gentil com a API
         time.sleep(1)
 
     except requests.exceptions.RequestException as e:
@@ -60,7 +58,6 @@ while len(reviews_coletadas) < target_reviews:
 # --- Criação do DataFrame ---
 df_reviews = pd.DataFrame(reviews_coletadas)
 
-# Salva em um CSV para não precisar coletar de novo
 df_reviews.to_csv("datasets/steam_reviews_bannerlord.csv", index=False)
 
 print("\n✅ Coleta concluída com sucesso!")
